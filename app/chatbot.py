@@ -11,17 +11,30 @@ client = Groq(api_key=api_key)
 
 def generate_questions(topic, language, difficulty, question_type):
 
-    prompt = f"""
-    Generate 5 {difficulty} level {question_type} interview questions 
-    about {topic} related to {language}
-    if {question_type} is programming it should not give any example just programing question .
-    """
+    system_prompt = """
+You are an AI interview assistant.
+Your task is to generate interview questions.
+
+Rules:
+1. Always generate exactly 5 questions.
+2. Questions must be clear and concise.
+3. Do not include explanations.
+4. Return only a numbered list.
+5. If question type is Programming, do NOT include code examples.
+"""
+
+    user_prompt = f"""
+Generate 5 {difficulty} level {question_type} interview questions 
+about the topic '{topic}' in the programming language '{language}'.
+"""
 
     response = client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
         messages=[
-            {"role": "user", "content": prompt}
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt}
         ],
-        model="llama-3.3-70b-versatile"
+        temperature=0.7
     )
 
     return response.choices[0].message.content
