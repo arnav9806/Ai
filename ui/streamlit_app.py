@@ -53,29 +53,3 @@ if st.button("Generate Questions"):
 
         st.success("Questions Generated")
         st.write(questions)
-
-
-# import streamlit as st
-# import sys
-# import os
-
-# # add project root to path
-# sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-# from app.chatbot import generate_questions
-
-# st.title("AI Interview Question Generator")
-
-# topic = st.text_input("Enter Topic")
-
-# if st.button("Generate Questions"):
-
-#     if topic:
-#         with st.spinner("Generating questions..."):
-#             questions = generate_questions(topic)
-
-#         st.success("Questions Generated")
-#         st.write(questions)
-
-#     else:
-#         st.warning("Please enter a topic")
